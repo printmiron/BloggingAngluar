@@ -2,7 +2,7 @@
 <div class="container-fluid d-flex">
 
     <!-- lado izquierdo (formulario) -->
-    <div class="col-6 d-flex justify-content-center align-items-center">
+    <div class="col-6 d-flex justify-content-center ">
 
         <div class="container-form w-75">
 
@@ -12,32 +12,38 @@
                 <!-- titulo -->
                 <div class="form-group">
                     <label for="exampleInputText1">Titulo</label>
-                    <input type="text" class="form-control" id="exampleInputText1" name="titulo" [(ngModel)]="noticiaActual.titulo">
+                    <input type="text" class="form-control" id="exampleInputText1" name="titulo"
+                        [(ngModel)]="noticiaActual.titulo">
                 </div>
 
                 <!-- url del imagen -->
                 <div class="form-group">
                     <label for="exampleInputUrl1">Imagen</label>
-                    <input type="url" class="form-control" id="exampleInputUrl1" placeholder="URL de la imagen" name="url" [(ngModel)]="noticiaActual.url">
+                    <input type="url" class="form-control" id="exampleInputUrl1" placeholder="URL de la imagen"
+                        name="url" [(ngModel)]="noticiaActual.url">
+                    <!-- vinculamos el campo del formulario con la propriedad -->
                 </div>
 
                 <!-- cuerpo de la noticia -->
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Cuerpo de la noticia</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="cuerpo" [(ngModel)]="noticiaActual.cuerpo"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="cuerpo"
+                        [(ngModel)]="noticiaActual.cuerpo"></textarea>
                 </div>
 
                 <!-- y la fecha -->
                 <div class="form-group">
                     <label for="exampleInputDate1">Fecha</label>
-                    <input type="date" class="form-control" id="exampleInputDate1" name="fecha" [(ngModel)]="noticiaActual.fecha">
+                    <input type="date" class="form-control" id="exampleInputDate1" name="fecha"
+                        [(ngModel)]="noticiaActual.fecha">
                 </div>
 
                 <!-- el boton con evento click con metodo para enviar los datos  -->
+                <!-- copia la noticiaActual y lo mente en el array | limpia formlario -->
                 <div class="mt-3">
                     <button (click)="publicarNoticia()" type="submit" class="btn btn-primary">Publicar</button>
                 </div>
-                
+
             </form>
 
         </div>
@@ -45,18 +51,31 @@
     </div>
 
     <!-- lado derecho (noticia) -->
-    <div class="col-6 d-flex justify-content-center align-items-center">
+    <div class="col-6 d-flex justify-content-center ">
 
         <!-- elegi de bootstrap un card para enseñar las noticias, con templanting -->
-        <div class="card" style="width: 30rem;">
-            <img [src]="arrayNoticias[noticia].url" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ arrayNoticias[noticia].titulo }}</h5>
-                <p class="card-text">{{ arrayNoticias[noticia].cuerpo }}</p>
-                <a>{{ arrayNoticias[noticia].fecha }}</a>
+        <div class="row row-cols-2 g-4">
+
+            <div class="col">
+
+                <!-- recorre todos las noticias del array y las muestra con el bootstrap que esta mas abajo -->
+                <div *ngFor="let noticia of arrayNoticias" class="card mt-5" style="width: 40rem;">
+
+                    <img [src]="noticia.url" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ noticia.titulo }}</h5>
+                        <p class="card-text">{{ noticia.cuerpo }}</p>
+                        <a>{{ noticia.fecha | date:"dd/MM/yyyy" }}</a>
+                    </div>
+
+                </div>
+
             </div>
+
+
         </div>
-        
+
+
     </div>
 
 </div>

@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
 import { Noticia } from '../../interface/noticia';
+import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-noticia-component',
-  imports: [],
+  imports: [FormsModule, CommonModule, DatePipe],
   templateUrl: './noticia-component.html',
   styleUrl: './noticia-component.css',
 })
 
 export class NoticiaComponent {
 
-  // array de noticias y el numero de noticia
+  // guardar todas las noticias
   arrayNoticias: Noticia[];
+  // contador de noticias
   noticia: number;
+  //noticia que se escribe en el formulario
   noticiaActual: Noticia;
 
+  //ejemplo ar principio
   // constructor(){
   //   this.noticia = 0;
   //   this.arrayNoticias = [{
@@ -28,6 +33,7 @@ export class NoticiaComponent {
 
   constructor(){
 
+    //inicializa la noticia en blanco y despues inicializa la lista de noticias como array vacio
     this.noticiaActual = {
       titulo: '',
       url: '',
@@ -42,8 +48,7 @@ export class NoticiaComponent {
   }
 
   publicarNoticia(){
-    this.noticiaActual.fecha = new Date(this.noticiaActual.fecha);
-
+    //guarda la noticia en array y para crear una copia y evitar modificar la referencia
     this.arrayNoticias.push({...this.noticiaActual});
 
     //limpiar el fomulario depsues de publicar uno
