@@ -1,4 +1,8 @@
+
 <!-- tengo dos contenedores dentro de uno global, el formulario y la lista de noticias, son divididas en dos partes -->
+
+<!-- la pagina es responsive -->
+
 <div class="container-fluid d-flex">
 
     <!-- lado izquierdo (formulario) -->
@@ -6,21 +10,25 @@
 
         <div class="container-form w-75">
 
-            <form>
+            <form #formNoticia="ngForm">
+
+                <!-- #formNoticia="ngForm" damos a Angular que #formNoticia representa el formulario -->
+
                 <!-- el formualrio tiene todo lo que se pide en la pracica, utilizo la forma bidirecional para vincular las entradas con las variables correspondientes -->
 
                 <!-- titulo -->
                 <div class="form-group">
                     <label for="exampleInputText1">Titulo</label>
                     <input type="text" class="form-control" id="exampleInputText1" name="titulo"
-                        [(ngModel)]="noticiaActual.titulo">
+                        [(ngModel)]="noticiaActual.titulo" required>
+                    <!-- añadio required a todos los campos, hasta que los campos no se rellena el boton no se activa -->
                 </div>
 
                 <!-- url del imagen -->
                 <div class="form-group">
                     <label for="exampleInputUrl1">Imagen</label>
                     <input type="url" class="form-control" id="exampleInputUrl1" placeholder="URL de la imagen"
-                        name="url" [(ngModel)]="noticiaActual.url">
+                        name="url" [(ngModel)]="noticiaActual.url" required>
                     <!-- vinculamos el campo del formulario con la propriedad -->
                 </div>
 
@@ -28,20 +36,23 @@
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Cuerpo de la noticia</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="cuerpo"
-                        [(ngModel)]="noticiaActual.cuerpo"></textarea>
+                        [(ngModel)]="noticiaActual.cuerpo" required></textarea>
                 </div>
 
                 <!-- y la fecha -->
+                <!-- si la fecha no se toca se pone por defecto la fecha actual -->
                 <div class="form-group">
                     <label for="exampleInputDate1">Fecha</label>
                     <input type="date" class="form-control" id="exampleInputDate1" name="fecha"
-                        [(ngModel)]="noticiaActual.fecha">
+                        [(ngModel)]="noticiaActual.fecha" required>
                 </div>
 
                 <!-- el boton con evento click con metodo para enviar los datos  -->
                 <!-- copia la noticiaActual y lo mente en el array | limpia formlario -->
                 <div class="mt-3">
-                    <button (click)="publicarNoticia()" type="submit" class="btn btn-primary">Publicar</button>
+                    <button (click)="publicarNoticia()" type="submit" class="btn btn-primary"
+                        [disabled]="!formNoticia.valid">Publicar</button>
+                    <!-- [disabled]="!formNoticia.valid desactiva el boton hasta que todos los campos no se reelna, luego de rellenar lo pasa a true y lo activa-->
                 </div>
 
             </form>
@@ -51,15 +62,17 @@
     </div>
 
     <!-- lado derecho (noticia) -->
-    <div class="col-6 d-flex justify-content-center ">
+    <div class="col-6  ">
 
         <!-- elegi de bootstrap un card para enseñar las noticias, con templanting -->
-        <div class="row row-cols-2 g-4">
+        <div class="row row-cols-1  d-flex justify-content-center w-100">
 
             <div class="col">
 
                 <!-- recorre todos las noticias del array y las muestra con el bootstrap que esta mas abajo -->
-                <div *ngFor="let noticia of arrayNoticias" class="card mt-5" style="width: 40rem;">
+                <!-- utilizo la nueva forma de recorrer las noticias en ANgular con @for -->
+                @for (noticia of arrayNoticias; track noticia) {
+                <div class="card mt-5" style="width: 100%;">
 
                     <img [src]="noticia.url" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -69,6 +82,9 @@
                     </div>
 
                 </div>
+                }
+                <!-- *ngFor="let noticia of arrayNoticias" utilizo al prinicio de la actividad-->
+
 
             </div>
 
