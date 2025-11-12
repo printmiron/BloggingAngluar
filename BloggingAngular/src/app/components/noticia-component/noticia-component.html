@@ -1,4 +1,4 @@
-
+<!-- COMPONENTE BLOG -->
 <!-- tengo dos contenedores dentro de uno global, el formulario y la lista de noticias, son divididas en dos partes -->
 
 <!-- la pagina es responsive -->
@@ -6,9 +6,9 @@
 <div class="container-fluid d-flex">
 
     <!-- lado izquierdo (formulario) -->
-    <div class="col-6 d-flex justify-content-center ">
+    <div class="col-6 d-flex justify-content-center">
 
-        <div class="container-form w-75">
+        <div class="container-form w-75 mt-5">
 
             <form #formNoticia="ngForm">
 
@@ -45,6 +45,7 @@
                     <label for="exampleInputDate1">Fecha</label>
                     <input type="date" class="form-control" id="exampleInputDate1" name="fecha"
                         [(ngModel)]="noticiaActual.fecha" required>
+                    <div class="form-text">Al no cambiar la fecha, se pone la fecha actual</div>
                 </div>
 
                 <!-- el boton con evento click con metodo para enviar los datos  -->
@@ -67,12 +68,12 @@
         <!-- elegi de bootstrap un card para enseñar las noticias, con templanting -->
         <div class="row row-cols-1  d-flex justify-content-center w-100">
 
-            <div class="col">
+            <div class="col ">
 
                 <!-- recorre todos las noticias del array y las muestra con el bootstrap que esta mas abajo -->
                 <!-- utilizo la nueva forma de recorrer las noticias en ANgular con @for -->
                 @for (noticia of arrayNoticias; track noticia) {
-                <div class="card mt-5" style="width: 100%;">
+                <div class="card mt-5 shadow p-3 mb-5 bg-white rounded" style="width: 100%;">
 
                     <img [src]="noticia.url" class="card-img-top" alt="...">
                     <div class="card-body">
